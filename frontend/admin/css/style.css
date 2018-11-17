@@ -1,0 +1,13 @@
+.main-page{
+	padding-left: 0px !important;
+	padding-right: 0px !important;
+}
+.top-nav{
+	background-color: #761db9;
+	height: 72px;
+	width: 100%;
+}
+.admin-sidenav{
+	background-color: #2d2b2b;
+	height: 866px;
+}
