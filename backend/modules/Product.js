@@ -9,7 +9,7 @@ router.get("/", function(req, res){
         if(err){
             console.log(err);
         }
-        res.json(result);
+        res.status(200).json(result);
     })
 })
 //get product by id
@@ -51,8 +51,9 @@ router.post("/", function(req, res){
     db.query("INSERT INTO products SET ?",[data], function(err, result){
         if(err){
             console.log(err);
+            res.json({message : "Failed to add product!"});
         }
-        res.send(result);
+        res.status(200).json({message : "Product successfully added!"});
     })
 })
 
@@ -80,8 +81,17 @@ router.put("/:id", function(req, res){
 router.put("/availabiltiy/:id", function(req, res){
     var id = req.params.id;
     var status = req.body.status;
-    db.query("UPDATE products set availability = ? WHERE id = ?", [status, id], function(err, result){
-        res.send(result);
+    var av = "";
+    if(status){
+        av = "true";
+    }else{
+        av = "false";
+    }
+    db.query("UPDATE products set availability = ? WHERE id = ?", [av, id], function(err, result){
+        if(err){
+            res.json({message:"Somthing went wrong!"});
+        }
+        res.status(200).json({message : "Successfully Changed!"})
     })
 })
 
@@ -91,7 +101,10 @@ router.put("/availabiltiy/:id", function(req, res){
 router.delete("/:id", function(req, res){
     var id = req.params.id;
     db.query("DELETE FROM products WHERE id = ?", [ id ], function(err, results){
-        res.send(results);
+        if(err){
+            res.json({message:"Something went wrong!"});
+        }
+        res.status(200).json({message : "Successfully Deleted!"})
     })
 })
 
