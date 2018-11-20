@@ -76,11 +76,23 @@ router.put("/:id", function(req, res){
     })
 })
 
+//update availability
+router.put("/availabiltiy/:id", function(req, res){
+    var id = req.params.id;
+    var status = req.body.status;
+    db.query("UPDATE products set availability = ? WHERE id = ?", [status, id], function(err, result){
+        res.send(result);
+    })
+})
+
 
 
 //delete products
-router.delete("/", function(req, res){
-
+router.delete("/:id", function(req, res){
+    var id = req.params.id;
+    db.query("DELETE FROM products WHERE id = ?", [ id ], function(err, results){
+        res.send(results);
+    })
 })
 
 module.exports = router;
