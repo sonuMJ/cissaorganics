@@ -1,5 +1,6 @@
 const express = require('express');
 const db = require("../db/dbconnection");
+const misc = require("../Misc/Misc");
 const router = express.Router();
 
 
@@ -40,7 +41,7 @@ router.post("/search", function(req, res){
 //post products
 router.post("/", function(req, res){
     var input = req.body;
-    var product_id = "PRO" + Math.floor((Math.random() * 100000000000) + 1);
+    var product_id = misc.RandomIdGen();
     var data = {
         name:input.name,
         price:input.price,
