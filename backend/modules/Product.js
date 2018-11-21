@@ -18,9 +18,10 @@ router.get("/:id", function(req, res){
     console.log(id);
     db.query("SELECT * FROM products WHERE id =?",[id] ,function(err, result){
         if(err){
-            console.log(err);
+            res.json({message:"Somthing went wrong!"});
+
         }
-        res.json(result);
+        res.status(200).json(result);
     })
 })
 
@@ -72,8 +73,9 @@ router.put("/:id", function(req, res){
     db.query("UPDATE products set ? WHERE id = ?",[data,id], function(err, result){
         if(err){
             console.log(err);
+            res.json({message:"Somthing went wrong!"});
         }
-        res.send(result);
+        res.status(200).json({message : "Product updated successfully!"});
     })
 })
 
